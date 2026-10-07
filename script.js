@@ -3,13 +3,24 @@ const form = document.querySelector("#note-form");
 const input = document.querySelector("#note-input");
 const categorySelect = document.querySelector("#note-category");
 const errorMessage = document.querySelector("#error-message");
+const searchInput = document.querySelector("#search-input");
 const list = document.querySelector("#notes-list");
 const count = document.querySelector("#note-count");
 
+const STORAGE_KEY = "quicknotes";
 const MAX_LENGTH = 200;
 
-// ---------- Data ----------
-let notes = [];
+// ---------- Data and storage ----------
+let notes = loadNotes();
+
+function loadNotes() {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  return saved ? JSON.parse(saved) : [];
+}
+
+function saveNotes() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(notes));
+}
 
 function capitalize(word) {
   return word.charAt(0).toUpperCase() + word.slice(1);
@@ -19,7 +30,19 @@ function capitalize(word) {
 function render() {
   list.replaceChildren();
 
-  notes.forEach((note) => {
+  const term = searchInput.value.trim().toLowerCase();
+  const visibleNotes = notes.filter((note) =>
+    note.text.toLowerCase().includes(term)
+  );
+
+  if (notes.length > 0 && visibleNotes.length === 0) {
+    const empty = document.createElement("li");
+    empty.classList.add("empty-message");
+    empty.textContent = "No notes match your search.";
+    list.appendChild(empty);
+  }
+
+  visibleNotes.forEach((note) => {
     const li = document.createElement("li");
     li.classList.add("note", `category-${note.category}`);
 
@@ -76,15 +99,17 @@ function addNote(text, category) {
     category: category,
     createdAt: new Date().toLocaleString(),
   });
+  saveNotes();
   render();
 }
 
 function deleteNote(id) {
   notes = notes.filter((note) => note.id !== id);
+  saveNotes();
   render();
 }
 
-// ---------- Form with validation ----------
+// ---------- Events ----------
 form.addEventListener("submit", (event) => {
   event.preventDefault();
   const text = input.value.trim();
@@ -103,5 +128,7 @@ form.addEventListener("submit", (event) => {
   input.value = "";
   input.focus();
 });
+
+searchInput.addEventListener("input", render);
 
 render();
