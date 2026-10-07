@@ -1,0 +1,188 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f0f2f5;
+  color: #222;
+  line-height: 1.5;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+header {
+  background-color: #0f766e;
+  color: #fff;
+  text-align: center;
+  padding: 24px 16px;
+}
+
+header h1 {
+  margin: 0 0 4px;
+}
+
+header p {
+  margin: 0;
+}
+
+main {
+  max-width: 700px;
+  margin: 24px auto;
+  padding: 0 16px;
+}
+
+section {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+section h2 {
+  margin-top: 0;
+}
+
+footer {
+  text-align: center;
+  padding: 16px;
+  color: #555;
+}
+
+/* ----- Form (Flexbox) ----- */
+form {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+input[type="text"],
+select {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+}
+
+form input[type="text"] {
+  flex: 1;
+}
+
+#search-input {
+  width: 100%;
+}
+
+button {
+  background-color: #0f766e;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 16px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0b5a54;
+}
+
+#error-message {
+  color: #c00000;
+  min-height: 1.2em;
+  margin: 8px 0 0;
+}
+
+#note-count {
+  color: #555;
+}
+
+/* ----- Note cards ----- */
+#notes-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.note {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-left: 6px solid #999;
+  border-radius: 8px;
+  background-color: #fafafa;
+}
+
+.note-text {
+  margin: 0 0 4px;
+  word-break: break-word;
+}
+
+.note-meta {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.note-category {
+  display: inline-block;
+  margin-right: 8px;
+  padding: 1px 8px;
+  border-radius: 10px;
+  background-color: #e5e7eb;
+  font-weight: bold;
+}
+
+.category-personal {
+  border-left-color: #0d9488;
+}
+
+.category-work {
+  border-left-color: #8e0000;
+}
+
+.category-study {
+  border-left-color: #1d4ed8;
+}
+
+.delete-btn {
+  background-color: #8e0000;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+}
+
+.delete-btn:hover {
+  background-color: #6b0000;
+}
+
+.empty-message {
+  color: #666;
+  font-style: italic;
+}
+
+/* ----- Small screens ----- */
+@media (max-width: 600px) {
+  form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  form input[type="text"],
+  form select,
+  form button {
+    flex: none;
+    width: 100%;
+  }
+}
